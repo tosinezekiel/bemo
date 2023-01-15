@@ -12,11 +12,13 @@ class Column extends Model
 
     protected $fillable = [
         "title",
-        "description",
-        "position"
     ];
 
     public function cards() {
         return $this->hasMany(Card::class);
+    }
+
+    public function owned($card){
+        return $card->column_id === $this->id;
     }
 }

@@ -16,7 +16,7 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->foreignId('column_id');
             $table->smallInteger('position')->default(0);
             $table->timestamps();

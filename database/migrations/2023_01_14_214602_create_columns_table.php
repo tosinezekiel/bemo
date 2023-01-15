@@ -16,8 +16,6 @@ class CreateColumnsTable extends Migration
         Schema::create('columns', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->text('description')->nullable();
-            $table->smallInteger('position')->default(0);
             $table->timestamps();
         });
     }

@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ColumnController;
+use App\Http\Controllers\Api\CardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('columns', ColumnController::class)->only([
-    'store', 'index', 'show', 'update', 'destroy'
+    'store', 'index', 'show', 'destroy'
 ]);
 
-Route::post('/columns/{column}/cards', [ColumnCardController::class, 'store']);
-
-Route::resource('cards', ColumnController::class)->only([
-    'show', 'update', 'destroy'
-]);
+Route::post('/columns/{column}/cards', [CardController::class, 'store']);
+Route::put('/columns/{column}/cards/{card}', [CardController::class, 'update']);
 
 Route::get('/auth/token/generate', [AuthController::class, 'clientToken']);

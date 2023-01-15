@@ -5,11 +5,13 @@
     </div>
 
     <div class="py-3 flex-grow flex overflow-auto">
-        <show-column />
-        <show-column />
-        <show-column />
+        <div v-if="data.length" class="flex">
+          <show-column v-for="(column, index) in data" 
+          :key="index" 
+          :column="column" />
+        </div>
 
-        <create-column />
+        <create-column @reload="reload()"/>
     </div>
   </div>
    
@@ -17,12 +19,32 @@
 <script>
     import ShowColumn from "../Components/Columns/Show";
     import CreateColumn from "../Components/Columns/Create";
+    import ColumnService from "../services/Column";
 
     export default {
       name: "Dashboard",
       components:{
           ShowColumn,
           CreateColumn
+      },
+      data(){
+        return {
+            showForm:false,
+            data: []
+        };
+      },
+      methods:{
+          async get(){
+              const columns = await ColumnService.get().then(response => {
+                this.data = response.data;
+              });
+          },
+          reload(){
+            this.get()
+          }
+      },
+      created(){
+          this.get()
       }
     }
 </script>
