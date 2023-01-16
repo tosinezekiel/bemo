@@ -18,6 +18,10 @@ class CardController extends Controller
         $column->cards()->create($request->validated());
     }
 
+    public function show(Card $card){
+        return $this->success("Card retrieved successfully.", $card->refresh());
+    }
+
     public function update(CardRequest $request, Column $column, Card $card){
         if(!$column->owned($card)){
             return $this->error("Unauthorized action.", [], HttpStatus::UNAUTHORIZED);

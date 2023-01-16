@@ -18,7 +18,6 @@ class Column {
     }
 
     show(columnId) {
-      let plans = [];
       return api.get(`${API_URL}/columns/${columnId}`)
         .then((response) => {
             return response.data;

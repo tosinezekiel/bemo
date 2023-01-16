@@ -9,15 +9,15 @@
                 </svg>
             </span>
             </div>
-            <div class="px-2 py-5">
-                <div v-if="column.cards.length">
-                    <show-card v-for="(card, index) in column.cards" 
+            <div class="px-2 py-5 space-y-2">
+                <div v-if="cards.length" class="space-y-2">
+                    <show-card v-for="(card, index) in cards" 
                     :key="index" 
-                    :id="column.id"
+                    :id="currentColumn.id"
                     :card="card"/>
                 </div>
 
-                <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow" @click="showCardForm(column.id)" @reloadColumn="reloadColumn()">
+                <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow" @click="showCardForm(currentColumn.id)">
                     <div class="bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-4 flex py-2 sm:px-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
@@ -42,7 +42,9 @@
         },
          data(){
             return {
-                columnId:null
+                columnId:null,
+                currentColumn: this.column,
+                cards: this.column.cards
             }
         },
         props: {
@@ -57,14 +59,18 @@
             },
             showCardForm(columnId){
                 this.columnId = columnId;
-                this.$modal.show(CreateCard, {
-                    columnId: columnId
-                });
+                this.$modal.show(CreateCard, 
+                    { columnId: columnId },
+                    { height: 'auto' },
+                    { 'before-close': event => {
+                        this.reloadColumn()
+                    } }
+                );
             },
             async reloadColumn(){
-                const column = await ColumnService.show(this.column.id)
+                const column = await ColumnService.show(this.currentColumn.id)
                 .then(response => {
-                    this.column = response.data
+                    this.cards = [...response.data.cards]
                 });
             }
         },

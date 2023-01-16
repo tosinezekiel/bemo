@@ -4,13 +4,19 @@
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700">Title</label>
                         <input type="text" v-model="form.title" id="title" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
+                        <span class="text-xs text-red-600" style="color:red;" v-if="errors.hasOwnProperty('title')">
+                            {{ errors.title[0] }}
+                        </span>
                     </div>
                 </div>
                 <div class="mt-1">
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                         <div class="mt-1">
-                        <textarea rows="4" v-model="form.description" id="description" class="block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                            <textarea rows="4" v-model="form.description" id="description" class="block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                            <span class="text-xs text-red-600" style="color:red;" v-if="errors.hasOwnProperty('description')">
+                                {{ errors.description[0] }}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -33,26 +39,22 @@ export default {
             form:{
                 title: "",
                 description: ""
-            }
-            
+            },
+            errors: {}  
         }
     },
     props:{
         columnId: Number
     },
     methods:{
-        // save(){
-        //     console.log(`${this.title} - ${this.description} - ${this.columnId}`)
-        // },
         async save(){
             const column = await CardService.save(this.columnId, this.form)
             .then(response => {
                 this.form.title = "";
                 this.form.description = "";
-                this.$emit('reloadColumn')
                 this.$emit('close');
-            },(error) => {
-                console.log(error)
+            }, (error) => {
+                this.errors = error.response.data.errors;
             });
         }
     }
