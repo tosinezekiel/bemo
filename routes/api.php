@@ -30,7 +30,7 @@ Route::get('/cards/{card}', [CardController::class, 'show']);
 Route::post('/columns/{column}/cards', [CardController::class, 'store']);
 Route::put('/columns/{column}/cards/{card}', [CardController::class, 'update']);
 
-Route::get('/auth/token/generate', [AuthController::class, 'clientToken']);
+Route::get('/auth/token/generate', [AuthController::class, 'clientToken'])->middleware('access-token');
 
 Route::get('/download', [DumpController::class, 'download']);
 

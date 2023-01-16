@@ -16,6 +16,7 @@ class CreateColumnsTable extends Migration
         Schema::create('columns', function (Blueprint $table) {
             $table->id();
             $table->string("title");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

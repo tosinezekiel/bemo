@@ -19,6 +19,7 @@ class CreateCardsTable extends Migration
             $table->text('description');
             $table->foreignId('column_id');
             $table->smallInteger('position')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

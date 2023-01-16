@@ -3006,7 +3006,9 @@ var render = function render() {
     staticClass: "divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow"
   }, [_c("div", {
     staticClass: "px-4 py-2 sm:px-6 flex justify-between"
-  }, [_c("span", [_vm._v(_vm._s(_vm.column.title))]), _vm._v(" "), _c("span", {
+  }, [_c("span", {
+    staticClass: "text-lg font-semibold"
+  }, [_vm._v(_vm._s(_vm.column.title))]), _vm._v(" "), _c("span", {
     staticClass: "hover:cursor-pointer",
     on: {
       click: function click($event) {
