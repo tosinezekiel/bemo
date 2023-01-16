@@ -31,6 +31,13 @@ class Column {
             return response.data;
         });
     }
+
+    download() {
+      return api.get(`${API_URL}/download`)
+        .then((response) => {
+            return response.data;
+        });
+    }
 }
 
 export default new Column();

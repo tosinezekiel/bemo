@@ -14,7 +14,7 @@
                     <input type="text" v-model="title" id="title" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
                 </div>
                 <div class="flex mt-2">
-                    <button type="button" @click.prevent="add()" class="inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button type="button" @click.prevent="add()" class="inline-flex items-center rounded border border-transparent bg-slate-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2">
                         Add column
                     </button>
                      <span class="hover:cursor-pointer mt-1 ml-2" @click="toggleForm()">

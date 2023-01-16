@@ -1,15 +1,15 @@
 <template>
   <nav class="bg-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
         <div class="flex h-12 justify-between">
         <div class="flex">
-            <div class="md:ml-6 md:flex md:items-center md:space-x-4">
+            <div class="md:flex md:items-center md:space-x-4">
                 <router-link to="/dashboard" class="text-white px-3 py-2 rounded-md text-sm font-medium">Trello</router-link>
             </div>
         </div>
         <div class="flex items-center">
             <div class="flex-shrink-0">
-                <router-link to="/boards" class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                <router-link to="/" class="relative inline-flex items-center rounded-md border border-transparent bg-slate-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span>Boards</span>
                 </router-link>
             </div>

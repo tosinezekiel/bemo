@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ColumnController;
 use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\DumpController;
+use App\Http\Controllers\Api\ColumnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,7 @@ Route::post('/columns/{column}/cards', [CardController::class, 'store']);
 Route::put('/columns/{column}/cards/{card}', [CardController::class, 'update']);
 
 Route::get('/auth/token/generate', [AuthController::class, 'clientToken']);
+
+Route::get('/download', [DumpController::class, 'download']);
+
+

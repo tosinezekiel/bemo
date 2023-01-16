@@ -14,19 +14,24 @@
 
         <create-column @reload="reload()"/>
     </div>
+    <div class="max-w-7xl mx-auto overflow-hidden">
+      <download />
+    </div>
   </div>
    
 </template>
 <script>
     import ShowColumn from "../Components/Columns/Show";
     import CreateColumn from "../Components/Columns/Create";
+    import Download from "../Components/Download";
     import ColumnService from "../services/Column";
 
     export default {
       name: "Dashboard",
       components:{
           ShowColumn,
-          CreateColumn
+          CreateColumn,
+          Download
       },
       data(){
         return {
