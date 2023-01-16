@@ -33,7 +33,7 @@ class CardTest extends TestCase
             "description" => $this->faker->sentence($nbWords = 6, $variableNbWords = true)
         ]);
 
-        $response = $this->json('POST', $this->baseUrl . "/columns/" . $this->column->id . "/cards", $column->toArray(), ['Accept' => 'application/json'])
+        $response = $this->json('POST', "{$this->baseUrl}/columns/{$this->column->id}/cards", $column->toArray(), ['Accept' => 'application/json'])
             ->assertStatus(HttpStatus::UNPROCESSABLE_ENTITY);
     }
 
@@ -44,7 +44,7 @@ class CardTest extends TestCase
             "description" => ""
         ]);
 
-        $response = $this->json('POST', $this->baseUrl . "/columns/" . $this->column->id . "/cards", $column->toArray(), ['Accept' => 'application/json'])
+        $response = $this->json('POST', "{$this->baseUrl}/columns/{$this->column->id}/cards", $column->toArray(), ['Accept' => 'application/json'])
             ->assertStatus(HttpStatus::UNPROCESSABLE_ENTITY);
     }
 
@@ -53,7 +53,7 @@ class CardTest extends TestCase
     {
         $column = Card::factory()->make();
 
-        $response = $this->json('POST', $this->baseUrl . "/columns/" . $this->column->id . "/cards", $column->toArray(), ['Accept' => 'application/json'])
+        $response = $this->json('POST', "{$this->baseUrl}/columns/{$this->column->id}/cards", $column->toArray(), ['Accept' => 'application/json'])
             ->assertStatus(HttpStatus::OK);
     }
 
@@ -67,7 +67,7 @@ class CardTest extends TestCase
         
         $freshCard = $this->column->cards()->create($card->toArray());
 
-        $response = $this->put("{$this->baseUrl}/columns/{$testColumn->id}/cards/{$freshCard->id}", 
+        $response = $this->json('PUT', "{$this->baseUrl}/columns/{$testColumn->id}/cards/{$freshCard->id}", 
         $data->toArray(), 
         ['Accept' => 'application/json'])
             ->assertStatus(HttpStatus::UNAUTHORIZED);
@@ -81,9 +81,7 @@ class CardTest extends TestCase
 
         $freshCard = $this->column->cards()->create($card->toArray());
 
-        // dd("{$this->baseUrl}/columns/{$this->column->id}/cards/{$freshCard->id}");
-
-        $response = $this->json('PUT', $this->baseUrl . "/columns/" . $this->column->id ."/cards/" . $freshCard->id, $data->toArray(), ['Accept' => 'application/json'])
+        $response = $this->json('PUT', "{$this->baseUrl}/columns/{$this->column->id}/cards/{$freshCard->id}", $data->toArray(), ['Accept' => 'application/json'])
             ->assertStatus(HttpStatus::OK);
     }
 }

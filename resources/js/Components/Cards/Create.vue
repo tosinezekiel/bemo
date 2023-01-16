@@ -1,21 +1,60 @@
 <template>
-        <div>
-            <div class="w-full">
-                <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow">
-                    <div class="bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-4 flex py-2 sm:px-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
-                        </svg>
-                        <span>Add card </span>
+            <div class="p-5 w-full">
+                <div class="mt-1">
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Title</label>
+                        <input type="text" v-model="form.title" id="title" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
                     </div>
                 </div>
+                <div class="mt-1">
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <div class="mt-1">
+                        <textarea rows="4" v-model="form.description" id="description" class="block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex mt-2">
+                    <button type="button" @click.prevent="save()" class="mr-2 inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700">
+                        Save
+                    </button>
+                    <button type="button" @click="$emit('close')" class="inline-flex items-center rounded border border-transparent bg-white px-2.5 py-1.5 text-xs font-medium text-black shadow-sm">
+                        cancel
+                    </button>
+                </div>
             </div>
-        </div>
 </template>
 
 <script>
 import CardService from "../../services/Card";
 export default {
-   
+    data(){
+        return {
+            form:{
+                title: "",
+                description: ""
+            }
+            
+        }
+    },
+    props:{
+        columnId: Number
+    },
+    methods:{
+        // save(){
+        //     console.log(`${this.title} - ${this.description} - ${this.columnId}`)
+        // },
+        async save(){
+            const column = await CardService.save(this.columnId, this.form)
+            .then(response => {
+                this.form.title = "";
+                this.form.description = "";
+                this.$emit('reloadColumn')
+                this.$emit('close');
+            },(error) => {
+                console.log(error)
+            });
+        }
+    }
 }
 </script>

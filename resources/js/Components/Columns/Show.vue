@@ -17,7 +17,7 @@
                     :card="card"/>
                 </div>
 
-                <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow" @click="showCardForm()">
+                <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow" @click="showCardForm(column.id)" @reloadColumn="reloadColumn()">
                     <div class="bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-4 flex py-2 sm:px-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
@@ -27,36 +27,6 @@
                 </div>
             </div>
         </div>
-
-        <modal name="create-card" :width="450" :height="250">
-            <div class="p-5 w-full">
-                <p>
-                    {{ column.id }}
-                </p>
-                <div class="mt-1">
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700">Title</label>
-                        <input type="text" v-model="title" id="title" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
-                    </div>
-                </div>
-                <div class="mt-1">
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                        <div class="mt-1">
-                        <textarea rows="4" v-model="description" id="description" class="block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
-                        </div>
-                    </div>
-                </div>
-                <div class="flex mt-2">
-                    <button type="button" @click.prevent="save()" class="mr-2 inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700">
-                        Save
-                    </button>
-                    <button type="button" @click="close()" class="inline-flex items-center rounded border border-transparent bg-white px-2.5 py-1.5 text-xs font-medium text-black shadow-sm">
-                        cancel
-                    </button>
-                </div>
-            </div>
-        </modal>
     </div>
 </template>
 
@@ -64,7 +34,6 @@
     import ShowCard from "../Cards/Show";
     import CreateCard from "../Cards/Create";
     import ColumnService from "../../services/Column";
-    import CardService from "../../services/Card";
 
     export default {
         components:{
@@ -73,8 +42,7 @@
         },
          data(){
             return {
-                title: "",
-                description: ""
+                columnId:null
             }
         },
         props: {
@@ -87,30 +55,13 @@
                     this.$emit('afterDelete');
                 });
             },
-            showCardForm(){
-                this.$modal.show('create-card');
+            showCardForm(columnId){
+                this.columnId = columnId;
+                this.$modal.show(CreateCard, {
+                    columnId: columnId
+                });
             },
-            save(){
-            console.log(this.column.id)
-            // let data = {
-            //     title: this.title,
-            //     description: this.description
-            // };
-
-            // const column = await CardService.save(this.resourceId, data)
-            // .then(response => {
-            //     this.title = "";
-            //     this.description = "";
-            //     this.$emit('reloadColumn')
-            //     this.$modal.hide('create-card');
-            // },(error) => {
-            //     console.log(error)
-            // });
-            },
-            close(){
-                this.$modal.hide('create-card');
-            },
-            async reloadColumns(){
+            async reloadColumn(){
                 const column = await ColumnService.show(this.column.id)
                 .then(response => {
                     this.column = response.data
