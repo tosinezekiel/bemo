@@ -10,6 +10,7 @@
     export default {
       props: {
         card: Array,
+        id: Number
       },
     }
 </script>

@@ -6,7 +6,8 @@
 
     <div class="py-3 flex-grow flex overflow-auto">
         <div v-if="data.length" class="flex">
-          <show-column v-for="(column, index) in data" 
+          <show-column v-for="(column, index) in data"
+          @afterDelete="reload()" 
           :key="index" 
           :column="column" />
         </div>

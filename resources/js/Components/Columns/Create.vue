@@ -11,7 +11,7 @@
 
             <div class="my-2 px-2" v-else>
                 <div class="mt-1">
-                    <input type="email" v-model="title" name="email" id="email" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
+                    <input type="text" v-model="title" id="title" placeholder="Enter column title" class="block w-full px-2 py-2 rounded-sm border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm"/>
                 </div>
                 <div class="flex mt-2">
                     <button type="button" @click.prevent="add()" class="inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -49,7 +49,8 @@ export default {
             const column = await ColumnService.save(data)
             .then(response => {
                 this.title = "";
-                this.$emit('reload');
+                this.$emit('reload')
+                this.toggleForm()
             });
         }
     }

@@ -12,6 +12,13 @@ class Card {
         });
     }
 
+    save(columnId, data) {
+      return api.post(`${API_URL}/columns/${columnId}/cards`, data)
+        .then((response) => {
+          return response.data;
+        });
+    }
+
     delete(cardId) {
       return api.delete(`${API_URL}/columns/${cardId}`)
         .then((response) => {
