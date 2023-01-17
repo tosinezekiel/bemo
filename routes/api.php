@@ -29,6 +29,7 @@ Route::resource('columns', ColumnController::class)->only([
 Route::get('/cards/{card}', [CardController::class, 'show']);
 Route::post('/columns/{column}/cards', [CardController::class, 'store']);
 Route::put('/columns/{column}/cards/{card}', [CardController::class, 'update']);
+Route::post('/columns/{column}/cards/{card}/reorder', [CardController::class, 'reorderCard']);
 
 Route::get('/auth/token/generate', [AuthController::class, 'clientToken'])->middleware('access-token');
 

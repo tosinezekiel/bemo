@@ -15,11 +15,20 @@ class CardController extends Controller
     use HasResponse;
     
     public function store(CardRequest $request, Column $column){
-        $column->cards()->create($request->validated());
+        $validated = (object) $request->validated();
+        $highest_order = Card::where('column_id', $column->id)->max('position');
+
+        $card = new Card();
+        $card->title = $validated->title;
+        $card->description = $validated->description;
+        $card->column_id = $column->id;
+        $card->position = $highest_order + 1;
+        $card->save();
     }
 
     public function show(Card $card){
-        return $this->success("Card retrieved successfully.", $card->refresh());
+        $data = $card->refresh();
+        return $this->success("Card retrieved successfully.", collect($data)->sortByDesc('position'));
     }
 
     public function update(CardRequest $request, Column $column, Card $card){
@@ -28,7 +37,25 @@ class CardController extends Controller
         }
 
         $card->update($request->validated());
+        $data = $card->refresh();
+        return $this->success("Card updated successfully.", collect($data)->sortByDesc('position'));
+    }
 
-        return $this->success("Card updated successfully.", $card->refresh());
+    public function reorderCard(Request $request, Column $column, Card $card){
+        $cards = Card::where('column_id', $column->id)->orderBy('position')->get();
+        // $cards = $column->cards->sortByDesc('position');
+
+        $i = 0;
+        foreach($cards as $columnCard){
+            if($columnCard->id == $card->id){
+                $columnCard->position = $request->position;
+            }else{
+                $i++;
+                $columnCard->position = $i;
+            }
+            $columnCard->save();
+        }
+
+        return $this->success("Card reordered successfully");
     }
 }

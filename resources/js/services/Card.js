@@ -24,6 +24,13 @@ class Card {
           return response.data;
         });
     }
+
+    reorder(columnId, cardId, data) {
+      return api.post(`${API_URL}/columns/${columnId}/cards/${cardId}/reorder`, data)
+        .then((response) => {
+          return response.data;
+        });
+    }
 }
 
 export default new Card();

@@ -17,7 +17,7 @@ class Column extends Model
     ];
 
     public function cards() {
-        return $this->hasMany(Card::class);
+        return $this->hasMany(Card::class)->orderBy('position');
     }
 
     public function owned($card){

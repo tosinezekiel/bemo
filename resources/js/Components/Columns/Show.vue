@@ -10,11 +10,14 @@
             </span>
             </div>
             <div class="px-2 py-5 space-y-2">
-                <div v-if="cards.length" class="space-y-2">
-                    <show-card v-for="(card, index) in cards" 
-                    :key="index" 
-                    :id="currentColumn.id"
-                    :card="card"/>
+                <div v-if="cards.length">
+                    <draggable :list="cards" group="cards" @start="drag=true" @end="drag=false" @update="updateOrder($event)">
+                        <show-card v-for="card in cards" 
+                        :key="card.id" 
+                        :data-id="card.id"
+                        :id="currentColumn.id"
+                        :card="card"/>
+                    </draggable>
                 </div>
 
                 <div class="divide-y divide-gray-200 overflow-hidden rounded-md shadow" @click="showCardForm(currentColumn.id)">
@@ -34,11 +37,14 @@
     import ShowCard from "../Cards/Show";
     import CreateCard from "../Cards/Create";
     import ColumnService from "../../services/Column";
+    import CardService from "../../services/Card";
+    import draggable from 'vuedraggable'
 
     export default {
         components:{
             ShowCard,
             CreateCard,
+            draggable
         },
          data(){
             return {
@@ -71,6 +77,22 @@
                 const column = await ColumnService.show(this.currentColumn.id)
                 .then(response => {
                     this.cards = [...response.data.cards]
+                });
+            },
+            async updateOrder(event) {
+                const cardId = event.item.getAttribute('data-id')
+                const columnId = event.item.id
+
+                let data = {
+                    id: cardId,
+                    column_id: columnId,
+                    position: event.newIndex
+                }
+                await CardService.reorder(columnId, cardId, data)
+                .then(response => {
+                    this.reloadColumn()
+                }).catch(error => {
+                    console.log(error);
                 });
             }
         },
