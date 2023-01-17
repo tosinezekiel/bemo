@@ -2653,8 +2653,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "p-5 w-full"
-  }, [_c("div", {
+    staticClass: "p-5 w-full divide-y divide-gray-200 space-y-3 overflow-hidden rounded-md shadow"
+  }, [_c("p", {
+    staticClass: "text-xl capitalize font-bold p-"
+  }, [_vm._v("\n        Create Card\n    ")]), _vm._v(" "), _c("div", [_c("div", {
     staticClass: "mt-1"
   }, [_c("div", [_c("label", {
     staticClass: "block text-sm font-medium text-gray-700",
@@ -2688,7 +2690,7 @@ var render = function render() {
     staticStyle: {
       color: "red"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.errors.title[0]) + "\n            ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.title[0]) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "mt-1"
   }, [_c("div", [_c("label", {
     staticClass: "block text-sm font-medium text-gray-700",
@@ -2704,7 +2706,7 @@ var render = function render() {
       value: _vm.form.description,
       expression: "form.description"
     }],
-    staticClass: "block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+    staticClass: "block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm",
     attrs: {
       rows: "4",
       id: "description"
@@ -2723,10 +2725,10 @@ var render = function render() {
     staticStyle: {
       color: "red"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.errors.description[0]) + "\n                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.errors.description[0]) + "\n                    ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "flex mt-2"
   }, [_c("button", {
-    staticClass: "mr-2 inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700",
+    staticClass: "mr-2 inline-flex items-center rounded border border-transparent bg-slate-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-slate-700",
     attrs: {
       type: "button"
     },
@@ -2736,7 +2738,7 @@ var render = function render() {
         return _vm.save();
       }
     }
-  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                Save\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "inline-flex items-center rounded border border-transparent bg-white px-2.5 py-1.5 text-xs font-medium text-black shadow-sm",
     attrs: {
       type: "button"
@@ -2746,7 +2748,7 @@ var render = function render() {
         return _vm.$emit("close");
       }
     }
-  }, [_vm._v("\n            cancel\n        ")])])]);
+  }, [_vm._v("\n                cancel\n            ")])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2770,8 +2772,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "p-5 w-full"
-  }, [_c("div", {
+    staticClass: "p-5 w-full divide-y divide-gray-200 space-y-3 overflow-hidden rounded-md shadow"
+  }, [_c("p", {
+    staticClass: "text-xl capitalize font-bold"
+  }, [_vm._v("\n        Edit Card\n    ")]), _vm._v(" "), _c("div", [_c("div", {
     staticClass: "mt-1"
   }, [_c("div", [_c("label", {
     staticClass: "block text-sm font-medium text-gray-700",
@@ -2805,7 +2809,7 @@ var render = function render() {
     staticStyle: {
       color: "red"
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.errors.title[0]) + "\n            ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    " + _vm._s(_vm.errors.title[0]) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c("div", {
     staticClass: "mt-1"
   }, [_c("div", [_c("label", {
     staticClass: "block text-sm font-medium text-gray-700",
@@ -2821,7 +2825,7 @@ var render = function render() {
       value: _vm.form.description,
       expression: "form.description"
     }],
-    staticClass: "block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+    staticClass: "block w-full pl-2 py-2 rounded-md border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm",
     attrs: {
       rows: "4",
       id: "description"
@@ -2840,10 +2844,10 @@ var render = function render() {
     staticStyle: {
       color: "red"
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.errors.description[0]) + "\n                ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.errors.description[0]) + "\n                    ")]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "flex mt-2"
   }, [_c("button", {
-    staticClass: "mr-2 inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700",
+    staticClass: "mr-2 inline-flex items-center rounded border border-transparent bg-slate-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-slate-700",
     attrs: {
       type: "button"
     },
@@ -2853,7 +2857,7 @@ var render = function render() {
         return _vm.save();
       }
     }
-  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n                Save\n            ")]), _vm._v(" "), _c("button", {
     staticClass: "inline-flex items-center rounded border border-transparent bg-white px-2.5 py-1.5 text-xs font-medium text-black shadow-sm",
     attrs: {
       type: "button"
@@ -2863,7 +2867,7 @@ var render = function render() {
         return _vm.$emit("close");
       }
     }
-  }, [_vm._v("\n            cancel\n        ")])])]);
+  }, [_vm._v("\n                cancel\n            ")])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2894,7 +2898,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-2 flex py-4 sm:px-3"
+    staticClass: "bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-2 flex py-4 sm:px-3 capitalize"
   }, [_vm._v(" \n        " + _vm._s(_vm.resource.title) + "\n    ")])]);
 };
 var staticRenderFns = [];
@@ -3038,9 +3042,9 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow"
   }, [_c("div", {
-    staticClass: "px-4 py-2 sm:px-6 flex justify-between"
+    staticClass: "px-4 py-2 sm:px-6 flex justify-between bg-slate-600 text-white"
   }, [_c("span", {
-    staticClass: "text-lg font-semibold"
+    staticClass: "text-lg font-semibold capitalize"
   }, [_vm._v(_vm._s(_vm.column.title))]), _vm._v(" "), _c("span", {
     staticClass: "hover:cursor-pointer",
     on: {

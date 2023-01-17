@@ -1,6 +1,6 @@
 <template>
     <div class="w-full my-3 overflow-hidden rounded-md shadow" @click="showEditForm(columnId)">
-        <span class="bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-2 flex py-4 sm:px-3"> 
+        <span class="bg-gray-100 hover:cursor-pointer hover:bg-gray-200 px-2 flex py-4 sm:px-3 capitalize"> 
             {{ resource.title }}
         </span>
     </div>
