@@ -2350,7 +2350,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       columnId: null,
       currentColumn: this.column,
-      cards: this.column.cards
+      cards: this.column.cards,
+      data: null
     };
   },
   props: {
@@ -2413,29 +2414,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateOrder: function updateOrder(event) {
       var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var cardId, columnId, data;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              cardId = event.item.getAttribute('data-id');
-              columnId = event.item.id;
-              data = {
-                id: cardId,
-                column_id: columnId,
-                position: event.newIndex
-              };
-              _context3.next = 5;
-              return _services_Card__WEBPACK_IMPORTED_MODULE_3__["default"].reorder(columnId, cardId, data).then(function (response) {
+              _context3.next = 2;
+              return _services_Card__WEBPACK_IMPORTED_MODULE_3__["default"].reorder(_this4.data.column_id, _this4.data.card_id, _this4.data).then(function (response) {
                 _this4.reloadColumn();
               })["catch"](function (error) {
                 console.log(error);
               });
-            case 5:
+            case 2:
             case "end":
               return _context3.stop();
           }
         }, _callee3);
       }))();
+    },
+    onMove: function onMove(event) {
+      var oldColumn = event.draggedContext;
+      var finalColumn = event.relatedContext;
+      var data = {
+        card_id: oldColumn.element.id,
+        column_id: finalColumn.element.column_id,
+        position: oldColumn.futureIndex
+      };
+      this.data = data;
     }
   }
 });
@@ -3072,18 +3075,14 @@ var render = function render() {
   }, [_vm.cards.length ? _c("div", [_c("draggable", {
     attrs: {
       list: _vm.cards,
-      group: "cards"
+      group: "cards",
+      move: _vm.onMove
     },
     on: {
       start: function start($event) {
         _vm.drag = true;
       },
-      end: function end($event) {
-        _vm.drag = false;
-      },
-      update: function update($event) {
-        return _vm.updateOrder($event);
-      }
+      end: _vm.updateOrder
     }
   }, _vm._l(_vm.cards, function (card) {
     return _c("show-card", {

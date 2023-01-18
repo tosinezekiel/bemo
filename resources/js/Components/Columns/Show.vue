@@ -11,7 +11,7 @@
             </div>
             <div class="px-2 py-5 space-y-2">
                 <div v-if="cards.length">
-                    <draggable :list="cards" group="cards" @start="drag=true" @end="drag=false" @update="updateOrder($event)">
+                    <draggable :list="cards" group="cards" @start="drag=true" @end="updateOrder" :move="onMove">
                         <show-card v-for="card in cards" 
                         :key="card.id" 
                         :data-id="card.id"
@@ -50,7 +50,8 @@
             return {
                 columnId:null,
                 currentColumn: this.column,
-                cards: this.column.cards
+                cards: this.column.cards,
+                data: null
             }
         },
         props: {
@@ -79,21 +80,25 @@
                     this.cards = [...response.data.cards]
                 });
             },
-            async updateOrder(event) {
-                const cardId = event.item.getAttribute('data-id')
-                const columnId = event.item.id
-
-                let data = {
-                    id: cardId,
-                    column_id: columnId,
-                    position: event.newIndex
-                }
-                await CardService.reorder(columnId, cardId, data)
+            async updateOrder(event){
+                await CardService.reorder(this.data.column_id, this.data.card_id, this.data)
                 .then(response => {
                     this.reloadColumn()
                 }).catch(error => {
                     console.log(error);
                 });
+            },
+            onMove(event) {
+                let oldColumn = event.draggedContext
+                let finalColumn = event.relatedContext
+
+                let data = {
+                    card_id: oldColumn.element.id,
+                    column_id: finalColumn.element.column_id,
+                    position: oldColumn.futureIndex
+                }
+
+                this.data = data;
             }
         },
     }

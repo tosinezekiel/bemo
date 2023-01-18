@@ -22,13 +22,13 @@ class CardController extends Controller
         $card->title = $validated->title;
         $card->description = $validated->description;
         $card->column_id = $column->id;
-        $card->position = $highest_order + 1;
+        $card->position = Card::where('column_id', $column->id)->count() > 0 ? $highest_order + 1 : 0;
         $card->save();
     }
 
     public function show(Card $card){
         $data = $card->refresh();
-        return $this->success("Card retrieved successfully.", collect($data)->sortByDesc('position'));
+        return $this->success("Card retrieved successfully.", collect($data)->sortByDesc('updated_at'));
     }
 
     public function update(CardRequest $request, Column $column, Card $card){
@@ -42,20 +42,34 @@ class CardController extends Controller
     }
 
     public function reorderCard(Request $request, Column $column, Card $card){
+        if($column->id !== $card->column_id){
+            $this->moveCard($column, $card);
+            return $this->success("Card moved successfully.");
+        }
+
         $cards = Card::where('column_id', $column->id)->orderBy('position')->get();
-        // $cards = $column->cards->sortByDesc('position');
 
         $i = 0;
         foreach($cards as $columnCard){
             if($columnCard->id == $card->id){
-                $columnCard->position = $request->position;
+                $columnCard->position = $request->position; 
             }else{
-                $i++;
+                $i = ($i === $request->position) ? $request->position + 1 : $i;
                 $columnCard->position = $i;
+                $i++;
             }
             $columnCard->save();
         }
+        
 
         return $this->success("Card reordered successfully");
+    }
+
+    public function moveCard(Column $column, Card $card)
+    {
+        $highest_order = Card::where('column_id', $column->id)->max('position');
+        $card->column_id = $column->id;
+        $card->position = $highest_order + 1;
+        $card->save();
     }
 }
